@@ -1,8 +1,6 @@
 import asyncio
 from telethon import TelegramClient, events, errors
-from config import API_ID, API_HASH
-
-session = "+79191514861"
+from config import API_ID, API_HASH, session
 
 INPUT_CHANNEL = "testdonor112"
 OUTPUT_CHANNEL = "testtarget11"
@@ -10,9 +8,9 @@ OUTPUT_CHANNEL = "testtarget11"
 ignored_keys = ["биткоин", "nft", "донат", "ставки", "казино"]
 message_text = "измененный текст"
 
-
 with TelegramClient(session, API_ID, API_HASH) as client:
     print("telethon started")
+
 
     @client.on(events.NewMessage(INPUT_CHANNEL))
     async def new_message(event):
@@ -51,6 +49,7 @@ with TelegramClient(session, API_ID, API_HASH) as client:
             except Exception as e:
                 print(f"Error: {e}")
 
+
     @client.on(events.Album(INPUT_CHANNEL))
     async def new_album(event):
         raw_text = event.original_update
@@ -68,5 +67,6 @@ with TelegramClient(session, API_ID, API_HASH) as client:
             await asyncio.sleep(e.seconds)
         except Exception as e:
             print(f"Error: {e}")
+
 
     client.run_until_disconnected()
